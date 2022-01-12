@@ -8,14 +8,14 @@ import java.util.Optional;
 public class HotelReservation implements HotelReservationIF {
 
 	ArrayList<Hotel> hotelList = new ArrayList<Hotel>();
-	Hotel hotel;
+	Hotel hotel ;
 
-	public void addHotel(String hotelName, int rating, double regularCustomerRate) {
-		
+	public void addHotel(String hotelName, int rating, double weekdayRate, double weekndRate) {
 		hotel = new Hotel();
 		hotel.setHotelName(hotelName);
 		hotel.setRating(rating);
-		hotel.setRegularCustomerCost(regularCustomerRate);
+		hotel.setWeekDayRate(weekdayRate);
+		hotel.setWeekendRate(weekndRate);
 		hotelList.add(hotel);
 	}
 	
@@ -29,12 +29,6 @@ public class HotelReservation implements HotelReservationIF {
 	
 	public ArrayList<Hotel> getHotelList(){
 		return hotelList;
-	}
-
-	public Hotel getCheapestHotel(LocalDate startDate, LocalDate endDate) {
-
-		Optional<Hotel> resultList = hotelList.stream().min(Comparator.comparing(Hotel::getRegularCustomerCost));
-		return resultList.get();
 	}
 
 }
