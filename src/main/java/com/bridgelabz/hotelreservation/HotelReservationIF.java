@@ -10,4 +10,5 @@ public interface HotelReservationIF {
 	public void printHotelList();
 	public ArrayList<Hotel> getHotelList();
 	public String getCheapestHotel(LocalDate startDate, LocalDate endDate);
+
 }
