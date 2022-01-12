@@ -5,9 +5,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class HotelReservation implements HotelReservationIF {
 
@@ -76,4 +73,40 @@ public class HotelReservation implements HotelReservationIF {
 		System.out.println("Cheapest Hotel : " + cheapestHotel + ", having rating: "+maxRating+" , Total Rates: " + cheapestRate);
         return cheapestHotel;
 	}
+	public String getBestRatedHotel(LocalDate startDate, LocalDate endDate) {
+		int rate=0;
+		String ratedHotel = null;
+		int numberOfDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
+        int weekends = 0;
+        
+		while (startDate.compareTo(endDate) != 0) {
+            switch (DayOfWeek.of(startDate.get(ChronoField.DAY_OF_WEEK))) {
+                case SATURDAY:
+                    ++weekends;
+                    break;
+                case SUNDAY:
+                    ++weekends;
+                    break;
+            }
+            startDate = startDate.plusDays(1);
+        }
+		
+		final int weekdaysNumber = numberOfDays - weekends;
+		final int weekendsNumber = weekends;
+		
+		int maxRating = hotelList.get(0).getRating();
+		for (Hotel hotel : hotelList) {
+				int rateForHotel = (int) ((weekdaysNumber * hotel.getWeekDayRate())
+                    + (weekendsNumber * hotel.getWeekendRate()));
+	            int ratingForHotel=hotel.getRating();
+	            if (ratingForHotel > maxRating){
+	                rate = rateForHotel;
+	                ratedHotel = hotel.getHotelName();
+	                maxRating=ratingForHotel;
+	            }
+		}
+		System.out.println("Best Rated Hotel : " + ratedHotel + ", having rating: "+maxRating+" , Total Rates: " + rate);
+		return ratedHotel;
+	}
+	           
 }
