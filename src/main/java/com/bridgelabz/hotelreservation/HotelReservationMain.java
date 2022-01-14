@@ -14,7 +14,8 @@ public class HotelReservationMain {
 		hotelReservation.printHotelList();
 		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 10);    
 		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 11);    
-		hotelReservation.getCheapestHotel(startDate, endDate);
+		hotelReservation.getCheapestHotel(startDate, endDate,"reward");
+		hotelReservation.getCheapestHotel(startDate, endDate,"regular");
 		hotelReservation.getBestRatedHotel(startDate, endDate);
 	}
 }
